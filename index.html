@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universo de Amor</title>
+    <style>
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Encabezado */
+        header {
+            text-align: center;
+            padding: 30px 0;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+        
+        /* Sección de frases */
+        .quotes-section {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .quote-container {
+            text-align: center;
+            padding: 20px;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .quote {
+            font-size: 1.8rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #e91e63;
+        }
+        
+        .author {
+            font-size: 1.2rem;
+            color: #777;
+        }
+        
+        .quote-btn {
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .quote-btn:hover {
+            background-color: #c2185b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Galería de fotos */
+        .gallery-section {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gallery-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #e91e63;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            height: 200px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Sección de dedicación */
+        .dedication-section {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dedication-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #e91e63;
+        }
+        
+        .dedication-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        input, textarea {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .submit-btn:hover {
+            background-color: #c2185b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Efectos especiales */
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff6b6b;
+            transform: rotate(45deg);
+            opacity: 0;
+        }
+        
+        .heart:before, .heart:after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+        
+        .heart:after {
+            top: 0;
+            left: -10px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .quote {
+                font-size: 1.4rem;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Universo de Amor</h1>
+            <p class="subtitle">Un espacio para expresar tus sentimientos más profundos</p>
+        </header>
+        
+        <section class="quotes-section">
+            <div class="quote-container">
+                <p class="quote" id="quote-text">"El amor no se mira, se siente. Y aún más, se da."</p>
+                <p class="author" id="quote-author">- Paulo Coelho</p>
+                <button class="quote-btn" id="new-quote">Nueva Frase</button>
+            </div>
+        </section>
+        
+        <section class="gallery-section">
+            <h2 class="gallery-title">Galería del Amor</h2>
+            <div class="gallery" id="gallery">
+                <!-- Las imágenes se cargarán con JavaScript -->
+            </div>
+        </section>
+        
+        <section class="dedication-section">
+            <h2 class="dedication-title">Dedica tu Mensaje</h2>
+            <form class="dedication-form" id="dedication-form">
+                <div class="form-group">
+                    <label for="to-name">Para:</label>
+                    <input type="text" id="to-name" placeholder="Nombre de tu ser amado" required>
+                </div>
+                <div class="form-group">
+                    <label for="from-name">De:</label>
+                    <input type="text" id="from-name" placeholder="Tu nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mensaje:</label>
+                    <textarea id="message" placeholder="Escribe tu mensaje de amor..." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Crear Dedicación</button>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        // Base de datos de frases de amor
+        const loveQuotes = [
+            {
+                text: "Amar no es mirarse el uno al otro, es mirar juntos en la misma dirección.",
+                author: "Antoine de Saint-Exupéry"
+            },
+            {
+                text: "El amor es la única fuerza capaz de transformar a un enemigo en un amigo.",
+                author: "Martin Luther King Jr."
+            },
+            {
+                text: "El amor no tiene edad, siempre está naciendo.",
+                author: "Blaise Pascal"
+            },
+            {
+                text: "El amor es como el viento, no lo puedes ver, pero puedes sentirlo.",
+                author: "Nicholas Sparks"
+            },
+            {
+                text: "Amar es encontrar en la felicidad de otro tu propia felicidad.",
+                author: "Gottfried Wilhelm Leibniz"
+            },
+            {
+                text: "El amor es la poesía de los sentidos.",
+                author: "Honoré de Balzac"
+            },
+            {
+                text: "El verdadero amor es como los espíritus: todos hablan de ellos, pero pocos los han visto.",
+                author: "François de La Rochefoucauld"
+            },
+            {
+                text: "El amor es un fuego que, si no se comunica, se extingue.",
+                author: "Gregorio Marañón"
+            },
+            {
+                text: "El amor es la llave maestra que abre las puertas de la felicidad.",
+                author: "Oliver Wendell Holmes"
+            },
+            {
+                text: "El amor es la alegría de los buenos, la reflexión de los sabios, el asombro de los necios.",
+                author: "Jean de la Bruyère"
+            }
+        ];
+
+        // URLs de imágenes de amor (imágenes de stock gratuitas)
+        const loveImages = [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw7pNXgtrRxno1SbCbKB4kk2iovbVUlrOYNw&s",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVw4aBTf8EVObNO0zmRRwHozT7REZay_4__A&s",
+            "https://content25.lecturas.com/medio/2025/04/03/frases-de-amor-de-libros_70086a79_250403002822_1200x1200.webp",
+            "https://content25.lecturas.com/medio/2025/04/03/frases-de-amor-de-canciones_9d1def80_250403002708_1200x1200.webp",
+            "https://cdn0.casamientos.com.ar/article/0443/original/1280/png/43440-title-quote-2.jpeg",
+            "https://cdn0.casamientos.com.ar/article/8343/original/1280/png/43438-title-quote.jpeg",
+            "https://elcomercio.pe/resizer/v2/DCCFLM3EHZEY5DGYE235CZZS4I.jpg?auth=8dd5fb2f6d70e82ee02e28ff3f66bedb2da9292c209bb4001076d26515cf2865&width=1200&height=900&quality=75&smart=true",
+            "https://illustoon.com/photo/11298.png",
+        ];
+
+        // Elementos DOM
+        const quoteText = document.getElementById('quote-text');
+        const quoteAuthor = document.getElementById('quote-author');
+        const newQuoteBtn = document.getElementById('new-quote');
+        const gallery = document.getElementById('gallery');
+        const dedicationForm = document.getElementById('dedication-form');
+        const heartsContainer = document.getElementById('hearts');
+
+        // Función para mostrar una frase aleatoria
+        function showRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * loveQuotes.length);
+            const randomQuote = loveQuotes[randomIndex];
+            
+            quoteText.textContent = `"${randomQuote.text}"`;
+            quoteAuthor.textContent = `- ${randomQuote.author}`;
+        }
+
+        // Función para cargar la galería de imágenes
+        function loadGallery() {
+            loveImages.forEach(imageUrl => {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.alt = 'Imagen de amor';
+                img.className = 'gallery-img';
+                
+                galleryItem.appendChild(img);
+                gallery.appendChild(galleryItem);
+            });
+        }
+
+        // Función para crear corazones flotantes
+        function createHearts() {
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                
+                // Posición aleatoria
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                
+                // Tamaño aleatorio
+                const size = Math.random() * 20 + 10;
+                
+                // Color aleatorio (tonos rosa/rojo)
+                const hue = Math.floor(Math.random() * 20) + 330;
+                const color = `hsl(${hue}, 100%, 65%)`;
+                
+                // Animación
+                const duration = Math.random() * 5 + 5;
+                const delay = Math.random() * 5;
+                
+                heart.style.left = `${left}%`;
+                heart.style.top = `${top}%`;
+                heart.style.width = `${size}px`;
+                heart.style.height = `${size}px`;
+                heart.style.background = color;
+                heart.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+                
+                heartsContainer.appendChild(heart);
+            }
+            
+            // Agregar la animación CSS para los corazones
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes float {
+                    0%, 100% {
+                        transform: translateY(0) rotate(45deg);
+                        opacity: 0;
+                    }
+                    50% {
+                        transform: translateY(-20px) rotate(45deg);
+                        opacity: 0.7;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Manejar el envío del formulario de dedicación
+        dedicationForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const toName = document.getElementById('to-name').value;
+            const fromName = document.getElementById('from-name').value;
+            const message = document.getElementById('message').value;
+            
+            // Aquí normalmente enviaríamos los datos a un servidor
+            // Por ahora, solo mostraremos una alerta
+            alert(`¡Dedicación creada!\n\nPara: ${toName}\nDe: ${fromName}\nMensaje: ${message}\n\nTu mensaje de amor ha sido guardado.`);
+            
+            // Limpiar el formulario
+            dedicationForm.reset();
+        });
+
+        // Inicializar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            showRandomQuote();
+            loadGallery();
+            createHearts();
+            
+            // Evento para el botón de nueva frase
+            newQuoteBtn.addEventListener('click', showRandomQuote);
+        });
+    </script>
+</body>
+</html>
